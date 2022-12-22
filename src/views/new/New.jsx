@@ -3,6 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./styles.css";
+
 const NewBlogPost = (props) => {
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
@@ -12,17 +13,17 @@ const NewBlogPost = (props) => {
     setText(value);
   });
 
-  const postArticle = async () => {
+  const postArticle = async (postTitle, postCategory, postContent) => {
     try {
-      let response = await fetch("http://localhost:3001/blogPosts", {
+      await fetch("http://localhost:3001/blogPosts", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          category: category,
-          title: title,
+          category: postCategory,
+          title: postTitle,
           cover:
             "https://imageio.forbes.com/specials-images/imageserve/5ef3f7eec4f2390006f0c356/GUI--Graphical-User-Interface--concept-/960x0.jpg?format=jpg&width=960",
           readTime: {
@@ -33,7 +34,7 @@ const NewBlogPost = (props) => {
             name: "Aygen Yucel",
             avatar: "https://ui-avatars.com/api/?name=Aygen+Yucel",
           },
-          content: content,
+          content: postContent,
           createdAt: "NEW DATE",
         }),
       });
@@ -41,20 +42,28 @@ const NewBlogPost = (props) => {
       console.log(error);
     }
   };
-  const handleSumbit = () => {
-    postArticle();
+  const handleChangeTitle = useCallback((value) => {
+    setTitle(value);
+  });
+
+  const handleSubmit = () => {
+    postArticle(title, category, content);
   };
+
   return (
     <Container className="new-blog-container">
-      <Form className="mt-5" onSubmit={handleSumbit}>
+      <Form className="mt-5" onSubmit={handleSubmit}>
         <Form.Group controlId="blog-form" className="mt-3">
-          <Form.Label value={title} onChange={() => setTitle(title)}>
+          <Form.Label value={title} onChange={handleChangeTitle}>
             Title
           </Form.Label>
           <Form.Control size="lg" placeholder="Title" />
         </Form.Group>
         <Form.Group controlId="blog-category" className="mt-3">
-          <Form.Label value={category} onChange={() => setCategory(category)}>
+          <Form.Label
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
             Category
           </Form.Label>
           <Form.Control size="lg" as="select">
@@ -66,7 +75,10 @@ const NewBlogPost = (props) => {
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="blog-content" className="mt-3">
-          <Form.Label value={content} onChange={() => setContent(content)}>
+          <Form.Label
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          >
             Blog Content
           </Form.Label>
           <ReactQuill
