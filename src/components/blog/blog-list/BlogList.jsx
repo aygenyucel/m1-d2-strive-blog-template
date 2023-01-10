@@ -8,7 +8,7 @@ const BlogList = (props) => {
 
   const fetchBlogPosts = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BE}/blogPosts`);
+      const response = await fetch(process.env.REACT_APP_BE + "/blogPosts");
       console.log(process.env.REACT_APP_BE);
       if (response.ok) {
         const data = await response.json();
