@@ -6,7 +6,7 @@ import "./styles.css";
 const Home = (props) => {
   return (
     <Container fluid="sm">
-      <h1 className="blog-main-title">Welcome to the Strive Blog!</h1>
+      <h1 className="blog-main-title">Welcome to the Epicode Blog!</h1>
       <BlogList />
     </Container>
   );
