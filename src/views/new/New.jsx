@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
 import "./styles.css";
 
 const NewBlogPost = (props) => {
