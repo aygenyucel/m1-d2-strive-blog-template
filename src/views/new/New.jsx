@@ -15,7 +15,7 @@ const NewBlogPost = (props) => {
 
   const postArticle = async (postTitle, postCategory, postContent) => {
     try {
-      await fetch("http://localhost:3001/blogPosts", {
+      await fetch(`${process.env.REACT_APP_BE}/blogPosts`, {
         method: "POST",
         headers: {
           Accept: "application/json",
