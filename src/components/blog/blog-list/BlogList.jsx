@@ -8,9 +8,7 @@ const BlogList = (props) => {
 
   const fetchBlogPosts = async () => {
     try {
-      const response = await fetch(
-        "https://m2-d7-cloud-deployment-production.up.railway.app/blogPosts"
-      );
+      const response = await fetch(`${process.env.REACT_APP_BE_URL}/blogPosts`);
       console.log(process.env.REACT_APP_BE);
       if (response.ok) {
         const data = await response.json();
