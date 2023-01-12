@@ -9,7 +9,7 @@ const BlogList = (props) => {
   const fetchBlogPosts = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_BE_URL}/blogPosts`);
-      console.log(process.env.REACT_APP_BE);
+      console.log("xxxx:", process.env.REACT_APP_BE_URL);
       if (response.ok) {
         const data = await response.json();
         setBlogPosts(data);
@@ -22,7 +22,9 @@ const BlogList = (props) => {
     }
   };
 
-  useEffect(() => fetchBlogPosts(), []);
+  useEffect(() => {
+    fetchBlogPosts();
+  }, []);
 
   return (
     <Row>
@@ -32,8 +34,9 @@ const BlogList = (props) => {
           style={{
             marginBottom: 50,
           }}
+          key={post._id}
         >
-          <BlogItem key={post.title} {...post} />
+          <BlogItem key={post._id} {...post} />
         </Col>
       ))}
     </Row>
