@@ -1,16 +1,36 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { Button, Container, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    console.log("ufshdyeshfnskjdfsdhfsjgshgsh");
+    try {
+      e.preventDefault();
+      const response = await fetch(
+        `${process.env.REACT_APP_BE_DEV_URL}/authors/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: email, password: password }),
+        }
+      );
+      if (response.ok) {
+        const accessToken = await response.json();
+        console.log(accessToken);
+        navigate("/");
+      } else {
+        console.log("Wrong email or password. Please try again :(");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
