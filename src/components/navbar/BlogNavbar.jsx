@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 const NavBar = (props) => {
   return (
-    <Navbar expand="lg" className="blog-navbar" fixed="top">
+    <Navbar expand="lg" className="blog-navbar">
       <Container className="justify-content-between">
         <Navbar.Brand as={Link} to="/">
           <img className="blog-navbar-brand" alt="logo" src="logo.svg" />
